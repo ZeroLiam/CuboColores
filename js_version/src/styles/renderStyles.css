@@ -1,14 +1,43 @@
+.l-region, .r-region{
+  width: 640px;
+  height: auto;
+}
+
+.mainContainer{
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+}
+
+.l-region{
+  order: 1;
+}
+
+.r-region{
+  order: 2;
+}
+
 .canvasHolder{
-  width:80%;
-  height:450px;
+  width:100%;
+  height:360px;
+  margin: 0px 20px;
 }
 
 .canvasHolder canvas{
+  background-color: #3c3c3c;
   padding: 10px;
-  margin: auto;
-  display: block;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  height:100;
+}
+
+.sliderControl{
+  width: 300px;
+  margin-top:10px;
+  text-align:  right;
+}
+
+.sliderControl input{
+  margin-left:10px;
+  margin-right:-20px;
+  width:180px;
 }
