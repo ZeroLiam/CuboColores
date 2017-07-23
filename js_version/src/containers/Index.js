@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 import logo from './../logo.svg';
+import CubeCanvas from './../components/CubeCanvas';
 
 class Index extends Component{
   constructor(props){
@@ -11,12 +11,10 @@ class Index extends Component{
     return(
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>CuboColores</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <CubeCanvas />
+        {this.props.children}
       </div>
     );
   }
