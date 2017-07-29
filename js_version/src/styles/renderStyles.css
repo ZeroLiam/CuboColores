@@ -41,3 +41,31 @@
   margin-right:-20px;
   width:180px;
 }
+
+.mappy{
+  display: flex;
+  margin: 20px;
+}
+
+.piso{
+  display: inline-block;
+  width: auto;
+  margin:10px;
+  border: 1px solid;
+}
+
+.rowx{
+  display: flex;
+  margin:4px;
+}
+.colx{
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid;
+  margin: 5px;
+  text-align: center;
+  justify-content: center;
+  /*padding: 2px;*/
+}
