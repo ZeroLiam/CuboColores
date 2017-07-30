@@ -12,6 +12,7 @@ renderRows(){
 
   let sequenceL = this.props.leftside;
   let sequenceR = this.props.rightside;
+  let seq = 0;
 
   //Let's make the floor!
   //Rows
@@ -27,7 +28,7 @@ renderRows(){
             let colContent = "";
             //the column content from leftside will be on the left
             //if X is always less or equal than the half of the total length
-            //if X is greater then the content from rightside will be on the right
+            //if X is greater then the half then it will be on the right
             if(this.props.FloorName != "Side" && (x <= ln/2)){
                 colContent = this.props.leftside;
             }else{
@@ -35,14 +36,15 @@ renderRows(){
             }
 
             //Now, if the floor we're making is not a floor but a side, then
-            //we fill the right side with the sequence starting on the bottom-right and downwards
-            //we fill the left side with the sequence starting on the bottom-left and updwards
-            if(this.props.FloorName == "Side" && (x <= ln/2)){
-              colContent = sequenceL;
-              sequenceL++;
-            }else if(this.props.FloorName == "Side" && (x > ln/2)){
-              colContent = sequenceR;
-              sequenceR--;
+            //we fill top to bottom with the alternating leftside and rightside sequence
+            //leftside on the odd numbers (x % 2 == 1)
+            //rightside on the even numbers (x % 2 == 0)
+            if(this.props.FloorName == "Side"){
+              if(x % 2 == 0){
+                colContent = sequenceR;
+              }else if(x % 2 == 1){
+                colContent = sequenceL;
+              }
             }
             cols.push(<div id={nae} key={x} className="colx">{colContent}</div>);
           }
@@ -50,6 +52,9 @@ renderRows(){
         })([], 0, cn)
 
       }</div>);
+      //Now decrement the left side by row, and increment the right side by row
+        sequenceL--;
+        sequenceR++;
     }
     return rows;
   })([], 0, rn);

@@ -17,6 +17,11 @@
   order: 2;
 }
 
+.r-region h1{
+  text-align: justify;
+  justify-content: flex-start;
+}
+
 .canvasHolder{
   width:100%;
   height:360px;
@@ -34,6 +39,10 @@
   width: 300px;
   margin-top:10px;
   text-align:  right;
+}
+
+.sliderControl label{
+  font-weight: bold;
 }
 
 .sliderControl input{
