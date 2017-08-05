@@ -19,13 +19,18 @@ renderCells(){
   //See if it's a floor with squares or cubes
   let square_floor = this.props.floorType === "piso" && this.props.contentType === "square";
   let square_side = this.props.floorType === "side" && this.props.contentType === "square";
-  let cube_floor = this.props.floorType === "piso" && this.props.contentType === "cube";
+
+  //Setup the cobe 3D formation
+  let mx = 30;
+  let my = 10;
+  let mz = 0;
 
   //Let's make the floor!
   //Rows
   let floor = ((rows, i, len) =>{
     while (++i <= len) {
       let name = "row-" + i;
+
       rows.push(<div id={name} key={i} className="rowx">{
         //Columns
         ((cols, x, ln)=>{
@@ -61,14 +66,7 @@ renderCells(){
               }
             }
 
-            /*[=============================================================]*/
-            /*[=================== CUBE/FLOOR TYPE ONLY ====================]*/
-            /*[=============================================================]*/
-            if(cube_floor){
-                //colContent = <CubeCSS />
-            }
-
-            //Finallyy, after all the conditions and bs, push the cell with the
+            //Finally, after all the conditions and bs, push the cell with the
             //content into the columns lol
             cols.push(<div id={nae} key={x} className="colx">{colContent}</div>);
           }
