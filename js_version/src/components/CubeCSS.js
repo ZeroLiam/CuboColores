@@ -12,13 +12,18 @@ class CubeCSS extends Component{
     let floors = this.props.floors;
 
     //Let's match the map of each floor here, starting by floor 0
-    let leftMapping = this.props.leftside;
-    let rightMapping = this.props.rightside;
+    let leftMapping = this.props.leftside;//UP
+    let rightMapping = this.props.rightside;//DOWN
+    let numMapping = 0;
+    let jk = 1;
+    let m2 = 0;
+    let leftcounter = 1;
 
     //Now, let's map the left side with the numbers from the
     //left-bottom/left-top to right-top/right-bottom sequence
-    let sequenceUp = this.props.sequenceR;
-    let sequenceDown = this.props.sequenceL;
+    let sequenceUp = this.props.sequenceR;//DOWN
+    let sequenceDown = this.props.sequenceL;//UP
+    let sideMapping = 0;
 
     //Let's define the transform values
     /*Start rotation Y for front, right, and left*/
@@ -64,6 +69,22 @@ class CubeCSS extends Component{
     let rwall = this.props.cR;
     let gwall = this.props.cG;
     let bwall = this.props.cB;
+    //Red kingdom
+    let pisoR = 0;
+    let pisoG = 0;
+    let pisoB = 0;
+    let floor3 = false;
+    let floor2 = false;
+    let floor1 = false;
+    let floor0 = false;
+    //Green kingdom
+    let frontR = 0;
+    let frontG = 0;
+    let frontB = 0;
+    let front3 = false;
+    let front2 = false;
+    let front1 = false;
+    let front0 = false;
 
     //Now make the cube(s)!
     let myCube = ((rw, i, len) =>{
@@ -80,7 +101,7 @@ class CubeCSS extends Component{
           let fl = "floor-";
           let sd = "side-";
 
-          //For each 4 modify the IDs & spit rows every 4 cubes
+          //For each 4 spit rows every 4 cubes
           if(4 * cr == i){
             m4 = i;
             cr++;
@@ -91,25 +112,117 @@ class CubeCSS extends Component{
             rr++;
           }
 
+          //Assign IDs every row
+          if(cr % 2 == 0){
+            sideMapping = sequenceUp;
+          }else{
+            sideMapping = sequenceDown;
+          }
+
+          //Make the mapping for the cube
+          //Floor has same mapping as arduino
+          //if jk is odd then it maps to the left, otherwise to the right
+          if(jk % 2 == 1){
+            numMapping = leftMapping;
+          }else{
+            numMapping = rightMapping;
+          }
+          if(2 * jk == i){
+            m2 = i;
+            jk++;
+          }
+
+          floor3 = (numMapping == 4 || numMapping == 3) && (sideMapping == 7 || sideMapping == 0);
+          floor2 = (numMapping == 5 || numMapping == 2) && (sideMapping == 6 || sideMapping == 1);
+          floor1 = (numMapping == 6 || numMapping == 1) && (sideMapping == 5 || sideMapping == 2);
+          floor0 = (numMapping == 7 || numMapping == 0) && (sideMapping == 4 || sideMapping == 3);
+
+          //Define Color red
+          if(rwall >=0 && rwall <= 63){
+            if(floor0){
+              pisoR = rwall;
+            }else{
+              pisoR = 0;
+            }
+          }if(rwall >=64 && rwall <= 127){
+            if(floor1){
+              pisoR = rwall;
+            }else{
+              pisoR = 0;
+            }
+          }if(rwall >=128 && rwall <= 191){
+            if(floor2){
+              pisoR = rwall;
+            }else{
+              pisoR = 0;
+            }
+          }if(rwall >=192 && rwall <= 255){
+            if(floor3){
+              pisoR = rwall;
+            }else{
+              pisoR = 0;
+            }
+          }
+
+          
+          //Define Color red
+          if(gwall >=0 && gwall <= 63){
+            if(front0){
+              pisoG = gwall;
+            }else{
+              pisoG = 0;
+            }
+          }if(gwall >=64 && gwall <= 127){
+            if(front1){
+              pisoG = gwall;
+            }else{
+              pisoG = 0;
+            }
+          }if(gwall >=128 && gwall <= 191){
+            if(front2){
+              pisoG = gwall;
+            }else{
+              pisoG = 0;
+            }
+          }if(gwall >=192 && gwall <= 255){
+            if(front3){
+              pisoG = gwall;
+            }else{
+              pisoG = 0;
+            }
+          }
+
+          //On every floor, left increases and right decreases
+          if(i == m16){
+            leftMapping++;
+            rightMapping--;
+            sequenceDown--;
+            sequenceUp++;
+          }
           //Define the CSS for each face
           let dynamicStyle = {
-            blue: 'rgba(0,0,255,0.3)',
-            red:  'rgba(255,0,0,0.3)',
-            dFront:   `rotateY(   ${fr_rotateY}deg ) translateZ( ${fr_translateZ}px ) translateX( ${fr_translateX}px ) translateY( ${fr_translateY}px )`,
-            dRight:   `rotateY(   ${ri_rotateY}deg ) translateZ( ${ri_translateZ}px ) translateX( ${ri_translateX}px ) translateY( ${ri_translateY}px )`,
-            dLeft:    `rotateY(   ${le_rotateY}deg ) translateZ( ${le_translateZ}px ) translateX( ${le_translateX}px ) translateY( ${le_translateY}px )`,
-            dBack:    `rotateX(   ${ba_rotateX}deg ) translateZ( ${ba_translateZ}px ) translateX( ${ba_translateX}px ) translateY( ${ba_translateY}px )`,
-            dTop:     `rotateX(   ${to_rotateX}deg ) translateZ( ${to_translateZ}px ) translateX( ${to_translateX}px ) translateY( ${to_translateY}px )`,
-            dBottom:  `rotateX(   ${bo_rotateX}deg ) translateZ( ${bo_translateZ}px ) translateX( ${bo_translateX}px ) translateY( ${bo_translateY}px )`
+            red:          `rgba(${pisoR}, 0, 0,0.3)`,
+            green:        `rgba(0, ${pisoG}, 0,0.3)`,
+            blue:         `rgba(0, 0, ${pisoB},0.3)`,
+            transparent:  'transparent',
+            predefined:   `rgba(${pisoR}, ${pisoG}, ${pisoB},0.3)`,
+            dFront:       `rotateY(   ${fr_rotateY}deg ) translateZ( ${fr_translateZ}px ) translateX( ${fr_translateX}px ) translateY( ${fr_translateY}px )`,
+            dRight:       `rotateY(   ${ri_rotateY}deg ) translateZ( ${ri_translateZ}px ) translateX( ${ri_translateX}px ) translateY( ${ri_translateY}px )`,
+            dLeft:        `rotateY(   ${le_rotateY}deg ) translateZ( ${le_translateZ}px ) translateX( ${le_translateX}px ) translateY( ${le_translateY}px )`,
+            dBack:        `rotateX(   ${ba_rotateX}deg ) translateZ( ${ba_translateZ}px ) translateX( ${ba_translateX}px ) translateY( ${ba_translateY}px )`,
+            dTop:         `rotateX(   ${to_rotateX}deg ) translateZ( ${to_translateZ}px ) translateX( ${to_translateX}px ) translateY( ${to_translateY}px )`,
+            dBottom:      `rotateX(   ${bo_rotateX}deg ) translateZ( ${bo_translateZ}px ) translateX( ${bo_translateX}px ) translateY( ${bo_translateY}px )`
           };
 
+          //Define the IDs for the faces
+          let tbb = "cubo-" + numMapping + "-" + sideMapping; //tbb = Top-Back-Bottom
           //Define the faces tags
-          let fr_fig = <figure className={fr} style={{transform: dynamicStyle.dFront, backgroundColor: dynamicStyle.blue}} key={fr}></figure>;
-          let ri_fig = <figure className={ri} style={{transform: dynamicStyle.dRight, backgroundColor: dynamicStyle.blue}} key={ri}></figure>;
-          let le_fig = <figure className={le} style={{transform: dynamicStyle.dLeft, backgroundColor: dynamicStyle.blue}} key={le}></figure>;
-          let ba_fig = <figure className={ba} style={{transform: dynamicStyle.dBack, backgroundColor: dynamicStyle.blue}} key={ba}></figure>;
-          let to_fig = <figure className={to} style={{transform: dynamicStyle.dTop, backgroundColor: dynamicStyle.red}} key={to}></figure>;
-          let bo_fig = <figure className={bo} style={{transform: dynamicStyle.dBottom, backgroundColor: dynamicStyle.blue}} key={bo}></figure>;
+          let fr_fig = <figure className={fr} id={tbb} style={{transform: dynamicStyle.dFront, backgroundColor: dynamicStyle.green}} key={fr}></figure>;
+          let ri_fig = <figure className={ri} id={tbb} style={{transform: dynamicStyle.dRight, backgroundColor: dynamicStyle.transparent}} key={ri}></figure>;
+          let le_fig = <figure className={le} id={tbb} style={{transform: dynamicStyle.dLeft, backgroundColor: dynamicStyle.transparent}} key={le}>{sideMapping}</figure>;
+          let ba_fig = <figure className={ba} id={tbb} style={{transform: dynamicStyle.dBack, backgroundColor: dynamicStyle.green}} key={ba}></figure>;
+          let to_fig = <figure className={to} id={tbb} style={{transform: dynamicStyle.dTop, backgroundColor: dynamicStyle.red}} key={to}>{numMapping}</figure>;
+          let bo_fig = <figure className={bo} id={tbb} style={{transform: dynamicStyle.dBottom, backgroundColor: dynamicStyle.red}} key={bo}></figure>;
           //Define faces in divs
           rw.push(fr_fig);
           rw.push(ri_fig);

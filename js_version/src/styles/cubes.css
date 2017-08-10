@@ -10,6 +10,7 @@
   height: 100%;
   position: absolute;
   transform-style: preserve-3d;
+  transform: rotateY(-22deg) rotateX(48deg) rotateZ(-31deg);
 }
 
 #cube figure {
