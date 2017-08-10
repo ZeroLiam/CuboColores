@@ -40,10 +40,9 @@ renderFloor(){
                 let nae = "col-" + x;
                 //Let's fill the cell content with the leftside and rightside props
                 let colContent = "";
+                let mapContent = "";
 
-
-
-                  mx -=14;
+                  mx -=16;
                   my -=24;
                   mz +=2;
                   let tr = "translate3d(" + mx + "px, " + my + "px, " + mz + "px)";
@@ -55,20 +54,25 @@ renderFloor(){
                 //the column content from leftside will be on the left
                 //if X is always less or equal than the half of the total length
                 //if X is greater then the half then it will be on the right
-                // if(x <= ln/2){
-                //     colContent = this.props.leftside;
-                // }else if(x > ln/2){
-                //     colContent = this.props.rightside;
-                // }
+                if(x <= ln/2){
+                    mapContent = this.props.leftside;
+                }else if(x > ln/2){
+                    mapContent = this.props.rightside;
+                }
 
                 //Finally, after all the conditions and bs, push the cell with the
                 //content into the columns lol
+                var specialc = (x == 1) ? "cleft" : "";
                     colContent = <CubeCSS sortType="cube"
+                    specialColor={specialc}
+                    mapNumber={mapContent}
+                    key={x}
                     //Rotate
                     rotX={mx}
                     rotY={my}
                     rotZ={mz}/>
                 cols.push(<div id={nae} key={x} className="colx" style={{transform:wow.transform}}>{colContent}</div>);
+
               }
               return cols;
             })([], 0, cn)

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Floor from './../components/Floor';
-import CubeFloor from './../components/CubeFloor';
 import ColorSlider from './../components/ColorSlider';
 import CubeCSS from './../components/CubeCSS';
+import Cubo from './../components/Cubo';
 
 class Index extends Component{
 
@@ -11,7 +11,7 @@ class Index extends Component{
   <Floor FloorName="Piso 1" floorRows="4" floorCols="4" leftside="6" rightside="1" />
   <Floor FloorName="Piso 2" floorRows="4" floorCols="4" leftside="5" rightside="2" />
   <Floor FloorName="Piso 3" floorRows="4" floorCols="4" leftside="4" rightside="3" />
-  */
+*/
 
   render(){
     return(
@@ -20,11 +20,8 @@ class Index extends Component{
           <h2>CuboColores</h2>
         </div>
 
-        <div className="cubeMap">
-          <CubeFloor baseName="piso3" floorRows="4" floorCols="4" />
-          <CubeFloor baseName="piso2" floorRows="4" floorCols="4" />
-          <CubeFloor baseName="piso1" floorRows="4" floorCols="4" />
-          <CubeFloor baseName="piso0" floorRows="4" floorCols="4" />
+        <div className="mappy">
+          <CubeCSS floorRows="4" floorCols="4" floors="4" leftside="7" rightside="0" />
         </div>
         <div className="mappy">
           <div className="ctrl">
