@@ -54,12 +54,18 @@ class CubeCSS extends Component{
     let to_translateY = 0;//Row +50
     let bo_translateY = 0;//Row -50
 
+    //Organize rows, columns and floors
     let cr = 1;
     let rr = 1;
     let m4 = 0;
     let m16 = 0;
 
-    //Now make the cube(s)
+    //Organize colors
+    let rwall = this.props.cR;
+    let gwall = this.props.cG;
+    let bwall = this.props.cB;
+
+    //Now make the cube(s)!
     let myCube = ((rw, i, len) =>{
         while (++i <= len) {
           //Define the faces IDs
@@ -184,13 +190,12 @@ class CubeCSS extends Component{
         red: 'rgba(255,0,0,0.3)',
         blue: 'rgba(0,0,255,0.3)',
         black: 'rgba(0,0,0,0.3)',
-        transform: `rotateY(${this.props.rotY}deg) rotateX(${this.props.rotX}deg) rotateZ(${this.props.rotZ}deg)`
-    };
-
+        transform: `rotateY(${this.props.rY}deg) rotateX(${this.props.rX}deg) rotateZ(${this.props.rZ}deg)`
+    }
 
     return(
       <div className="container">
-        <div id="cube" className="show-rotation">
+        <div id="cube" className="show-rotation" style={{transform: lol.transform}}>
           {this.renderCubes()}
         </div>
       </div>
