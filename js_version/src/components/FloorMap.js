@@ -4,7 +4,7 @@ import _ from 'lodash';
 import './../styles/renderStyles.css';
 import CubeCSS from './CubeCSS';
 
-class Floor extends Component{
+class FloorMap extends Component{
 
 renderCells(){
   //Fill the rows and cols pls
@@ -95,4 +95,4 @@ renderCells(){
   }
 }
 
-export default Floor;
+export default FloorMap;
