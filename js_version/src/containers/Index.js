@@ -11,9 +11,9 @@ class Index extends Component{
         super(props);
 
         this.state = {
-          rotx: 0,
-          roty: 0,
-          rotz: 0,
+          rotx: -26,
+          roty: 48,
+          rotz: -31,
           rcol: 0,
           gcol: 0,
           bcol: 0
@@ -72,7 +72,8 @@ class Index extends Component{
 
         <div className="mainCube">
           <CubeCSS  floorRows="4" floorCols="4" floors="4"
-                    leftside="7" rightside="0"
+                    leftside="4" rightside="3"
+                    sequenceL="7" sequenceR="0"
                     rX={this.state.rotx} rY={this.state.roty} rZ={this.state.rotz}
                     cR={this.state.rcol} cG={this.state.gcol} cB={this.state.bcol}/>
           <div className="ctrl">
@@ -91,18 +92,21 @@ class Index extends Component{
           </div>
         </div>
         <div className="mappy">
-            <FloorMap FloorName="Piso 0" floorType="piso" contentType="square"
+            <FloorMap FloorName="Pared" floorType="side" contentType="square"
             floorRows="4" floorCols="4"
             leftside="7" rightside="0" />
-            <FloorMap FloorName="Piso 1" floorType="piso" contentType="square"
-            floorRows="4" floorCols="4"
-            leftside="6" rightside="1" />
-            <FloorMap FloorName="Piso 2" floorType="piso" contentType="square"
-            floorRows="4" floorCols="4"
-            leftside="5" rightside="2" />
-            <FloorMap FloorName="Piso 3" floorType="piso" contentType="square"
-            floorRows="4" floorCols="4"
-            leftside="6" rightside="3" />
+                <FloorMap FloorName="Piso 0" floorType="piso" contentType="square"
+                floorRows="4" floorCols="4"
+                leftside="7" rightside="0" />
+                <FloorMap FloorName="Piso 1" floorType="piso" contentType="square"
+                floorRows="4" floorCols="4"
+                leftside="6" rightside="1" />
+                <FloorMap FloorName="Piso 2" floorType="piso" contentType="square"
+                floorRows="4" floorCols="4"
+                leftside="5" rightside="2" />
+                <FloorMap FloorName="Piso 3" floorType="piso" contentType="square"
+                floorRows="4" floorCols="4"
+                leftside="4" rightside="3" />
         </div>
 
 

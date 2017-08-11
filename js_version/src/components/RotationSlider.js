@@ -8,7 +8,7 @@ class RotationSlider extends Component{
     super(props);
 
     this.state = {
-      rotationLvl: 0
+      rotationLvl: this.props.Value
     }
   }
 
