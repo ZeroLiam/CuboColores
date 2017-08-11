@@ -18,6 +18,8 @@ class CubeCSS extends Component{
     let jk = 1;
     let m2 = 0;
     let leftcounter = 1;
+    //Map each front-back wall
+    let frontcounter = 0;
 
     //Now, let's map the left side with the numbers from the
     //left-bottom/left-top to right-top/right-bottom sequence
@@ -66,25 +68,41 @@ class CubeCSS extends Component{
     let m16 = 0;
 
     //Organize colors
+    //Get values from parent slider
     let rwall = this.props.cR;
     let gwall = this.props.cG;
     let bwall = this.props.cB;
-    //Red kingdom
+    //Assign colors by floors or walls
     let pisoR = 0;
     let pisoG = 0;
     let pisoB = 0;
+    //Red kingdom
     let floor3 = false;
     let floor2 = false;
     let floor1 = false;
     let floor0 = false;
+    let red3 = false;
+    let red2 = false;
+    let red1 = false;
+    let red0 = false;
     //Green kingdom
-    let frontR = 0;
-    let frontG = 0;
-    let frontB = 0;
     let front3 = false;
     let front2 = false;
     let front1 = false;
     let front0 = false;
+    let green3 = false;
+    let green2 = false;
+    let green1 = false;
+    let green0 = false;
+    //Blue kingdom
+    let lado3 = false;
+    let lado2 = false;
+    let lado1 = false;
+    let lado0 = false;
+    let blue3 = false;
+    let blue2 = false;
+    let blue1 = false;
+    let blue0 = false;
 
     //Now make the cube(s)!
     let myCube = ((rw, i, len) =>{
@@ -101,6 +119,13 @@ class CubeCSS extends Component{
           let fl = "floor-";
           let sd = "side-";
 
+          //Assign IDs for the sides
+          if(cr % 2 == 0){
+            sideMapping = sequenceUp;
+          }else{
+            sideMapping = sequenceDown;
+          }
+
           //For each 4 spit rows every 4 cubes
           if(4 * cr == i){
             m4 = i;
@@ -112,11 +137,11 @@ class CubeCSS extends Component{
             rr++;
           }
 
-          //Assign IDs every row
-          if(cr % 2 == 0){
-            sideMapping = sequenceUp;
-          }else{
-            sideMapping = sequenceDown;
+          //Frontcounter - For the green side
+          //Changes every 16th cube
+          frontcounter++;
+          if(i == (m16 + 1)){
+            frontcounter = 1;
           }
 
           //Make the mapping for the cube
@@ -132,64 +157,69 @@ class CubeCSS extends Component{
             jk++;
           }
 
+          //Define floors and walls for colors
+          //Floor for red
           floor3 = (numMapping == 4 || numMapping == 3) && (sideMapping == 7 || sideMapping == 0);
           floor2 = (numMapping == 5 || numMapping == 2) && (sideMapping == 6 || sideMapping == 1);
           floor1 = (numMapping == 6 || numMapping == 1) && (sideMapping == 5 || sideMapping == 2);
           floor0 = (numMapping == 7 || numMapping == 0) && (sideMapping == 4 || sideMapping == 3);
+          //Conditional for red
+          red0 = rwall >=0 && rwall <= 63;
+          red1 = rwall >=64 && rwall <= 127;
+          red2 = rwall >=128 && rwall <= 191;
+          red3 = rwall >=192 && rwall <= 255;
+          //Wall for green
+          front3 = (sideMapping >= 0 && sideMapping <= 3) && (frontcounter >= 13 && frontcounter <= 16);
+          front2 = (sideMapping >= 4 && sideMapping <= 7) && (frontcounter >= 9 && frontcounter <= 12);
+          front1 = (sideMapping >= 0 && sideMapping <= 3) && (frontcounter >= 5 && frontcounter <= 8);
+          front0 = (sideMapping >= 4 && sideMapping <= 7) && (frontcounter >= 1 && frontcounter <= 4);
+          //Conditional for green
+          green0 = gwall >= 0 && gwall <= 63;
+          green1 = gwall >= 64 && gwall <= 127;
+          green2 = gwall >= 128 && gwall <= 191;
+          green3 = gwall >= 192 && gwall <= 255;
+          //Wall for blue
+          lado3 = (frontcounter == 1 || frontcounter == 5 || frontcounter == 9 || frontcounter == 13);
+          lado2 = (frontcounter == 2 || frontcounter == 6 || frontcounter == 10 || frontcounter == 14);
+          lado1 = (frontcounter == 3 || frontcounter == 7 || frontcounter == 11 || frontcounter == 15);
+          lado0 = (frontcounter == 4 || frontcounter == 8 || frontcounter == 12 || frontcounter == 16);
+          //Conditional for blue
+          blue0 = bwall >= 0 && bwall <= 63;
+          blue1 = bwall >= 64 && bwall <= 127;
+          blue2 = bwall >= 128 && bwall <= 191;
+          blue3 = bwall >= 192 && bwall <= 255;
 
           //Define Color red
-          if(rwall >=0 && rwall <= 63){
-            if(floor0){
-              pisoR = rwall;
-            }else{
-              pisoR = 0;
-            }
-          }if(rwall >=64 && rwall <= 127){
-            if(floor1){
-              pisoR = rwall;
-            }else{
-              pisoR = 0;
-            }
-          }if(rwall >=128 && rwall <= 191){
-            if(floor2){
-              pisoR = rwall;
-            }else{
-              pisoR = 0;
-            }
-          }if(rwall >=192 && rwall <= 255){
-            if(floor3){
-              pisoR = rwall;
-            }else{
-              pisoR = 0;
-            }
+          if(red0){
+            floor0 ? pisoR = rwall : pisoR = 0;
+          }if(red1){
+            floor1 ? pisoR = rwall : pisoR = 0;
+          }if(red2){
+            floor2 ? pisoR = rwall : pisoR = 0;
+          }if(red3){
+            floor3 ? pisoR = rwall : pisoR = 0;
           }
 
-          
-          //Define Color red
-          if(gwall >=0 && gwall <= 63){
-            if(front0){
-              pisoG = gwall;
-            }else{
-              pisoG = 0;
-            }
-          }if(gwall >=64 && gwall <= 127){
-            if(front1){
-              pisoG = gwall;
-            }else{
-              pisoG = 0;
-            }
-          }if(gwall >=128 && gwall <= 191){
-            if(front2){
-              pisoG = gwall;
-            }else{
-              pisoG = 0;
-            }
-          }if(gwall >=192 && gwall <= 255){
-            if(front3){
-              pisoG = gwall;
-            }else{
-              pisoG = 0;
-            }
+          //Define Color green
+          if(green3){
+            front3 ? pisoG = gwall : pisoG = 0;
+          }if(green2){
+            front2 ? pisoG = gwall : pisoG = 0;
+          }if(green1){
+            front1 ? pisoG = gwall : pisoG = 0;
+          }if(green0){
+            front0 ? pisoG = gwall : pisoG = 0;
+          }
+
+          //Define Color blue
+          if(blue3){
+            lado3 ? pisoB = bwall : pisoB = 0;
+          }if(blue2){
+            lado2 ? pisoB = bwall : pisoB = 0;
+          }if(blue1){
+            lado1 ? pisoB = bwall : pisoB = 0;
+          }if(blue0){
+            lado0 ? pisoB = bwall : pisoB = 0;
           }
 
           //On every floor, left increases and right decreases
@@ -217,12 +247,12 @@ class CubeCSS extends Component{
           //Define the IDs for the faces
           let tbb = "cubo-" + numMapping + "-" + sideMapping; //tbb = Top-Back-Bottom
           //Define the faces tags
-          let fr_fig = <figure className={fr} id={tbb} style={{transform: dynamicStyle.dFront, backgroundColor: dynamicStyle.green}} key={fr}></figure>;
-          let ri_fig = <figure className={ri} id={tbb} style={{transform: dynamicStyle.dRight, backgroundColor: dynamicStyle.transparent}} key={ri}></figure>;
-          let le_fig = <figure className={le} id={tbb} style={{transform: dynamicStyle.dLeft, backgroundColor: dynamicStyle.transparent}} key={le}>{sideMapping}</figure>;
-          let ba_fig = <figure className={ba} id={tbb} style={{transform: dynamicStyle.dBack, backgroundColor: dynamicStyle.green}} key={ba}></figure>;
-          let to_fig = <figure className={to} id={tbb} style={{transform: dynamicStyle.dTop, backgroundColor: dynamicStyle.red}} key={to}>{numMapping}</figure>;
-          let bo_fig = <figure className={bo} id={tbb} style={{transform: dynamicStyle.dBottom, backgroundColor: dynamicStyle.red}} key={bo}></figure>;
+          let fr_fig = <figure className={fr} id={tbb} style={{transform: dynamicStyle.dFront, backgroundColor: dynamicStyle.predefined}} key={fr}>{frontcounter}</figure>;
+          let ri_fig = <figure className={ri} id={tbb} style={{transform: dynamicStyle.dRight, backgroundColor: dynamicStyle.predefined}} key={ri}></figure>;
+          let le_fig = <figure className={le} id={tbb} style={{transform: dynamicStyle.dLeft, backgroundColor: dynamicStyle.predefined}} key={le}>{sideMapping}</figure>;
+          let ba_fig = <figure className={ba} id={tbb} style={{transform: dynamicStyle.dBack, backgroundColor: dynamicStyle.predefined}} key={ba}>{frontcounter}</figure>;
+          let to_fig = <figure className={to} id={tbb} style={{transform: dynamicStyle.dTop, backgroundColor: dynamicStyle.predefined}} key={to}>{numMapping}</figure>;
+          let bo_fig = <figure className={bo} id={tbb} style={{transform: dynamicStyle.dBottom, backgroundColor: dynamicStyle.predefined}} key={bo}></figure>;
           //Define faces in divs
           rw.push(fr_fig);
           rw.push(ri_fig);

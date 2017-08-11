@@ -86,8 +86,8 @@ class Index extends Component{
             <div>
               <h1>RGB Controllers</h1>
               <ColorSlider Color="red" Value="10" onUpdate={(...args) => this.onUpdateRCol(...args)} />
-              <ColorSlider Color="green" Value="10" onUpdate={(...args) => this.onUpdateBCol(...args)} />
-              <ColorSlider Color="blue" Value="10" onUpdate={(...args) => this.onUpdateGCol(...args)} />
+              <ColorSlider Color="green" Value="10" onUpdate={(...args) => this.onUpdateGCol(...args)} />
+              <ColorSlider Color="blue" Value="10" onUpdate={(...args) => this.onUpdateBCol(...args)} />
             </div>
           </div>
         </div>
