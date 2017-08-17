@@ -328,17 +328,13 @@ class CubeCSS extends Component{
   }
 
   render(){
-    var lol = {
-        green: 'rgba(0,255,0,1)',
-        red: 'rgba(255,0,0,0.3)',
-        blue: 'rgba(0,0,255,0.3)',
-        black: 'rgba(0,0,0,0.3)',
+    let cubeStyle = {
         transform: `rotateY(${this.props.rY}deg) rotateX(${this.props.rX}deg) rotateZ(${this.props.rZ}deg)`
     }
 
     return(
       <div className="container">
-        <div id="cube" className="show-rotation" style={{transform: lol.transform}}>
+        <div id="cube" className="show-rotation" style={{transform: cubeStyle.transform}}>
           {this.renderCubes()}
         </div>
       </div>

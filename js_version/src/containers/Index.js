@@ -3,22 +3,36 @@ import FloorMap from './../components/FloorMap';
 import CubeCSS from './../components/CubeCSS';
 import ColorSlider from './../components/ColorSlider';
 import RotationSlider from './../components/RotationSlider';
+import socketio from './../lib/ws_client';
 import $ from 'jquery';
 
 class Index extends Component{
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+      super(props);
 
-        this.state = {
-          rotx: -26,
-          roty: 48,
-          rotz: -31,
-          rcol: 0,
-          gcol: 0,
-          bcol: 0
-        }
+      this.state = {
+        rotx: -26,
+        roty: 48,
+        rotz: -31,
+        rcol: 0,
+        gcol: 0,
+        bcol: 0
       }
+    }
+
+    componentDidMount(){
+      let dtobj = {};
+      socketio.on('connect', () => {
+        console.log("socketio.id: " + socketio.id); // Generate ID of client
+        //Change the id of client and send it to the server
+        dtobj.id = socketio.id;
+        });
+
+      socketio.on('disconnect', () =>{
+        console.log('user disconnected');
+      });
+    }
 
     onUpdateRX(val){
       this.setState(prevState =>{
